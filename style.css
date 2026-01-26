@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -12,8 +12,7 @@ body {
 
 /* HEADER */
 header {
-    background: #fff;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #1E3A8A;
 }
 
 .header-container {
@@ -26,8 +25,8 @@ header {
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 20px;
+    font-family:'Orbitron',sans-serif;
+    font-size:1.6rem;
 }
 
 nav a {
@@ -51,42 +50,20 @@ nav a {
 }
 
 .category-card {
-    background: linear-gradient(180deg, #111827, #111827);
+    background: #111827;
     border-radius: 12px;
-    padding: 20px;
+    padding:20px 60px;
     color: #fff;
-    text-align: center;
-}
-.category-card {
     display: flex;
-    flex-direction: column; /* Выстраивает элементы вертикально */
-    align-items: center;    /* Центрирует картинку и текст по горизонтали */
-    text-align: center;     /* Центрирует многострочный текст */
-}
-
-.category-card img {
-    width: 100%;            /* Картинка подстраивается под ширину сетки */
-    height: auto;           /* Сохраняет пропорции */
-    object-fit: cover;      /* Помогает, если картинки должны быть одной формы */
-    margin-bottom: 12px;    /* Расстояние между картинкой и текстом */
-}
-.category-card p, 
-.category-card {
-    margin-top: auto;    /* Это свойство толкнет текст в самый низ */
-    margin-bottom: 0;    /* Убираем лишний отступ снизу */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding-right: 60px;
 }
-.tImg {
-    margin: 0;              /* Убираем лишние отступы у параграфа */
-    font-weight: 500;       /* Делаем текст чуть выразительнее */
-}
-
 
 .category-card img {
     width: 150px;
     height: 150px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 /* BRANDS */
@@ -109,8 +86,7 @@ nav a {
 
 /* FOOTER */
 footer {
-    border-top: 1px solid #ccc;
-    background: #fff;
+    border-top: 2px solid #1E3A8A;
     margin-top: 50px;
 }
 
@@ -180,26 +156,3 @@ footer {
 .btn-secondary {
     background: #e5e7eb;
 }
-
-
-/* Базовые стили для карточек */
-.category-card {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 200px;
-    display: flex;
-    align-items: flex-end;
-    padding: 15px;
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    border-radius: 8px;
-    position: relative;
-}
-
-.category-card > * {
-    position: relative;
-    z-index: 2;
-}
-
