@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ElectroHub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .category-card {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 200px;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+            border-radius: 8px;
+            z-index: 1;
+        }
+        
+        .category-card > * {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo">ElectroHub</div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="#">О нас</a>
+            <a href="#">Контакты</a>
+            <a href="#">Прочее</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <h2>Популярные категории</h2>
+
+    <div class="categories">
+      <div class="category-card">
+            <img src="../сайт22/photo/Obogrev.png">
+            <p class="tImg">Обогреватель</p>
+        </div>
+        <div class="category-card">
+            <img src="../сайт22/photo/Telev.png">
+            <p class="tImg">Телевизоры</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Laptop.png">
+            <p class="tImg">Ноутбуки</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Chainik.png">
+            <p class="tImg">Чайники</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Holod.png">
+            <p class="tImg">Холодильники</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Telef.png">
+            <p class="tImg">Смартфоны</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Yshi.png">
+            <p class="tImg">Наушники</p>
+        </div>
+            <div class="category-card">
+            <img src="../сайт22/photo/Ytyg.png">
+            <p class="tImg">Гладильные системы</p>
+        </div>
+    </div>
+
+    <div class="brands">
+        <h2>Популярные бренды</h2>
+        <div class="brand-logos">
+            <div class="BORK">
+                <img src="../сайт22/photo/bork.png">
+            </div>
+        <div class="brand-logos">
+            <div class="SAMSUNG">
+                <img src="../сайт22/photo/samsung.png">
+            </div>
+        <div class="brand-logos">
+            <div class="Яндекс">
+                <img src="../сайт22/photo/Yandex.png">
+            </div>
+        <div class="brand-logos">
+            <div class="SMEG">
+                <img src="../сайт22/photo/smeg.png">
+            </div>
+        <div class="brand-logos">
+            <div class="LG">
+                <img src="../сайт22/photo/lg.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div>
+            <p>Главная</p>
+            <p>Каталог</p>
+        </div>
+        <div>
+            <p>О нас</p>
+            <p>Контакты</p>
+        </div>
+        <div>
+            <p>Корзина</p>
+            <p>Доставка</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Добавляем JavaScript для установки фоновых изображений -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим все карточки с атрибутом data-image
+    const cards = document.querySelectorAll('.category-card[data-image]');
+    
+    // Для каждой карточки устанавливаем фоновое изображение
+    cards.forEach(card => {
+        const imagePath = card.getAttribute('data-image');
+        
+        // Заменяем обратные слеши на прямые (для Windows)
+        const normalizedPath = imagePath.replace(/\\/g, '/');
+        
+        // Устанавливаем фоновое изображение
+        card.style.backgroundImage = `url('${normalizedPath}')`;
+        
+        // Для отладки (можно удалить)
+        console.log(`Установлено изображение: ${normalizedPath} для "${card.textContent}"`);
+    });
+    
+    // Если нет изображений, показываем сообщение
+    if (cards.length === 0) {
+        console.warn('Карточки с изображениями не найдены!');
+    }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
