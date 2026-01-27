@@ -16,7 +16,13 @@
                     <a href="./pages/catalog.html">Каталог</a>
                     <a href="#">О нас</a>
                     <a href="#">Контакты</a>
-                    <a href="#">Прочее</a>
+                    <div class="more-wrapper">
+                        <span class="more-button">Прочее</span>
+                        <div class="more-options-wrapper">
+                            <a href="#">Избранное</a>
+                            <a href="#">Корзина</a>
+                        </div>
+                    </div>
                 </nav>
             </div>
         </header>
@@ -93,7 +99,18 @@
                 </div>
             </div>
         </footer>
-
+        <script>
+            const moreOptionsButton = document.querySelector('.more-button');
+            const moreOptions = document.querySelector('.more-options-wrapper');
+            moreOptionsButton.addEventListener('click',(evt) => {
+                if(moreOptions.style.display === 'none'){
+                    moreOptions.style.display = 'flex';
+                }
+                else {
+                    moreOptions.style.display = 'none';
+                }
+            })
+        </script>
     </body>
 </html>
 
