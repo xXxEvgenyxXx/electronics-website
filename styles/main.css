@@ -1,0 +1,48 @@
+/* MAIN */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* CATEGORIES */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.category-card {
+    background: #111827;
+    border-radius: 12px;
+    padding:20px 60px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.category-card img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 30px;
+}
+
+/* BRANDS */
+.brands {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.brand-logos {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.brand-logos img {
+    height: 40px;
+}

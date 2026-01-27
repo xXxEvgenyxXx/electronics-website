@@ -1,0 +1,58 @@
+/* CATALOG */
+.catalog-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.filters {
+    width: 250px;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.filters h3 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    background: linear-gradient(180deg, #0f172a, #020617);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+.product-card button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-main {
+    background: #fff;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+}
