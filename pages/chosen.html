@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Избранное — ElectroHub</title>
+        <link rel="stylesheet" href="../styles/index.css">
+        <link rel="stylesheet" href="../styles/chosen.css">
+    </head>
+    <body>
+
+    <header>
+        <div class="header-container">
+            <img src="./images/logo.svg">
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="./pages/catalog.html">Каталог</a>
+                <a href="#">О нас</a>
+                <a href="#">Контакты</a>
+                <div class="more-wrapper">
+                    <span class="more-button">Прочее</span>
+                    <div class="more-options-wrapper">
+                        <a href="#">Избранное</a>
+                        <a href="#">Корзина</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Избранные товары</h1>
+        <p class="favorites-description">Здесь собраны товары, которые вы добавили в избранное для быстрого доступа</p>
+        
+        <div class="favorites-layout">
+            <div class="filters">
+                <h3>Сортировка</h3>
+                <select class="sort-select">
+                    <option>По дате добавления</option>
+                    <option>По цене (сначала дешевые)</option>
+                    <option>По цене (сначала дорогие)</option>
+                    <option>По популярности</option>
+                </select>
+                
+                <h3>Категории в избранном</h3>
+                <label><input type="checkbox"> Смартфоны (3)</label>
+                <label><input type="checkbox"> Ноутбуки (2)</label>
+                <label><input type="checkbox"> Наушники (1)</label>
+                <label><input type="checkbox"> Телевизоры (1)</label>
+                
+                <button class="clear-favorites-btn">Очистить избранное</button>
+            </div>
+            
+            <section class="favorites-items">
+                <div class="empty-state" id="empty-favorites" style="display: none;">
+                    <img src="./images/heart-empty.svg" alt="Пустое избранное" style="width: 100px; margin: 20px auto; display: block;">
+                    <h3>В избранном пока ничего нет</h3>
+                    <p>Добавляйте товары в избранное, чтобы они были всегда под рукой</p>
+                    <a href="catalog.html" class="btn-main">Перейти в каталог</a>
+                </div>
+                
+                <div class="favorites-grid" id="favorites-grid">
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/iPhone.png" alt="iPhone 15 Pro">
+                        <h3>iPhone 15 Pro</h3>
+                        <p class="favorite-category">Смартфон</p>
+                        <p class="price">89 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 15.03.2024</div>
+                    </div>
+                    
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/MacBook.png" alt="MacBook Air M2">
+                        <h3>MacBook Air M2</h3>
+                        <p class="favorite-category">Ноутбук</p>
+                        <p class="price">119 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 10.03.2024</div>
+                    </div>
+                    
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/SonyTV.png" alt="Sony Bravia">
+                        <h3>Sony Bravia 55"</h3>
+                        <p class="favorite-category">Телевизор</p>
+                        <p class="price">64 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 05.03.2024</div>
+                    </div>
+                    
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/SamsungPhone.png" alt="Samsung Galaxy">
+                        <h3>Samsung Galaxy S24</h3>
+                        <p class="favorite-category">Смартфон</p>
+                        <p class="price">79 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 01.03.2024</div>
+                    </div>
+                    
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/Headphones.png" alt="Sony Headphones">
+                        <h3>Sony WH-1000XM5</h3>
+                        <p class="favorite-category">Наушники</p>
+                        <p class="price">29 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 28.02.2024</div>
+                    </div>
+
+                    <div class="favorite-card">
+                        <div class="favorite-badge">В избранном</div>
+                        <img src="./images/Lenovo.png" alt="Lenovo Yoga">
+                        <h3>Lenovo Yoga 9i</h3>
+                        <p class="favorite-category">Ноутбук</p>
+                        <p class="price">94 990 ₽</p>
+                        <div class="favorite-actions">
+                            <button class="btn-main">В корзину</button>
+                            <button class="btn-remove">Удалить</button>
+                        </div>
+                        <div class="added-date">Добавлено: 25.02.2024</div>
+                    </div>
+                </div>
+                
+                <div class="favorites-summary">
+                    <p>Всего товаров в избранном: <strong>6</strong></p>
+                    <p>Общая стоимость: <strong>479 940 ₽</strong></p>
+                    <button class="btn-add-all">Добавить все в корзину</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <p><a href="../index.html">Главная</a></p>
+                <p><a href="./catalog.html">Каталог</a></p>
+            </div>
+            <div>
+                <p>О нас</p>
+                <p>Контакты</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const removeButtons = document.querySelectorAll('.btn-remove');
+            const clearAllBtn = document.querySelector('.clear-favorites-btn');
+            const addAllBtn = document.querySelector('.btn-add-all');
+            const favoritesGrid = document.getElementById('favorites-grid');
+            const emptyState = document.getElementById('empty-favorites');
+            
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.favorite-card');
+                    card.style.animation = 'fadeOut 0.3s ease-out';
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        updateFavoritesCount();
+                        checkEmptyState();
+                    }, 300);
+                });
+            });
+            
+            clearAllBtn.addEventListener('click', function() {
+                if (confirm('Вы действительно хотите очистить избранное?')) {
+                    favoritesGrid.innerHTML = '';
+                    checkEmptyState();
+                }
+            });
+            
+            addAllBtn.addEventListener('click', function() {
+                const addButtons = document.querySelectorAll('.btn-main');
+                addButtons.forEach(btn => btn.textContent = '✓ Добавлено');
+                alert('Все товары добавлены в корзину!');
+            });
+            
+            function checkEmptyState() {
+                const items = document.querySelectorAll('.favorite-card');
+                if (items.length === 0) {
+                    emptyState.style.display = 'block';
+                    document.querySelector('.favorites-summary').style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    document.querySelector('.favorites-summary').style.display = 'block';
+                }
+            }
+            
+            function updateFavoritesCount() {
+                const count = document.querySelectorAll('.favorite-card').length;
+                const summary = document.querySelector('.favorites-summary p:first-child strong');
+                if (summary) {
+                    summary.textContent = count;
+                }
+            }
+        });
+    </script>
+
+    </body>
+</html>
