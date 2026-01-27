@@ -29,10 +29,16 @@ header {
     font-size:1.6rem;
 }
 
-nav a {
-    margin: 0 10px;
+a {
     text-decoration: none;
     color: #111827;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+nav a {
+    margin: 0 10px;
 }
 
 /* FOOTER */
@@ -46,5 +52,6 @@ footer {
     margin: auto;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap:100px;
 }
