@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Оформление доставки — ElectroHub</title>
+        <link rel="stylesheet" href="../styles/index.css">
+        <link rel="stylesheet" href="../styles/delivery.css">
+    </head>
+    <body>
+
+        <header>
+            <div class="header-container">
+                <img src="../images/logo.svg" alt="ElectroHub">
+                <button class="menu-toggle" id="menuToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav id="mainNav">
+                    <a href="../index.html">Главная</a>
+                    <a href="./catalog.html">Каталог</a>
+                    <a href="./about.html">О нас</a>
+                    <a href="#">Контакты</a>
+                    <div class="more-wrapper">
+                        <span class="more-button">Прочее</span>
+                        <div class="more-options-wrapper">
+                            <a href="#">Избранное</a>
+                            <a href="#">Корзина</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Основной контент страницы оформления доставки -->
+        <main class="delivery-container">
+            <h1>Оформление доставки</h1>
+            <p class="delivery-description">Пожалуйста, заполните информацию для доставки вашего заказа. Все поля, кроме отмеченных как "необязательно", обязательны для заполнения.</p>
+            
+            <form class="delivery-form">
+                <div class="form-section">
+                    <h2>Контактная информация</h2>
+                    
+                    <div class="form-group">
+                        <label for="email">Ваш email</label>
+                        <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Ваш номер телефона</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+х (ххх) ххх хх-хх" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Адрес доставки</h2>
+                    
+                    <div class="form-group">
+                        <label for="city">Город</label>
+                        <input type="text" id="city" name="city" placeholder="Введите ваш город" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="street">Улица</label>
+                        <input type="text" id="street" name="street" placeholder="Введите название улицы" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="house">Дом</label>
+                            <input type="text" id="house" name="house" placeholder="Номер дома" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="building">Корпус, строение (необязательно)</label>
+                            <input type="text" id="building" name="building" placeholder="Корпус или строение">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="apartment">Квартира</label>
+                            <input type="text" id="apartment" name="apartment" placeholder="Номер квартиры" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="floor">Этаж</label>
+                            <input type="number" id="floor" name="floor" placeholder="Этаж" min="1" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Способ оплаты</h2>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span>Банковской картой онлайн</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash">
+                            <span>Наличными курьеру</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Оплатить</button>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div>
+                    <p><a href="../index.html">Главная</a></p>
+                    <p><a href="./catalog.html">Каталог</a></p>
+                </div>
+                <div>
+                    <p><a href="./about.html">О нас</a></p>
+                    <p>Контакты</p>
+                </div>
+            </div>
+        </footer>
+        <script src="../scripts/index.js"></script>
+    </body>
+</html>
