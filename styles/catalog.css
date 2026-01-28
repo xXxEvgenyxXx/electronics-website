@@ -2,13 +2,14 @@
 .catalog-layout {
     display: flex;
     gap: 30px;
+    height:100%;
 }
 
 .filters {
     width: 250px;
-    background: #fff;
+    background: #f7f7f7;
     padding: 20px;
-    border: 1px solid #ccc;
+    border-right: 2px solid #1E3A8A;
 }
 
 .filters h3 {
@@ -22,6 +23,7 @@
 
 /* PRODUCTS */
 .products {
+    margin: 50px 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
