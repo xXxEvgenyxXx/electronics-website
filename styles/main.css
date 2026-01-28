@@ -1,7 +1,11 @@
 /* MAIN */
 .container {
     max-width: 1100px;
-    margin: 30px auto;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:0 auto;
 }
 
 /* CATEGORIES */
@@ -44,4 +48,76 @@
 
 .brand-logos img {
     height: 40px;
+}
+
+/* Адаптивность для главной страницы */
+@media (max-width: 1150px) {
+    .categories {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .brand-logos {
+        gap: 60px;
+    }
+}
+
+@media (max-width: 900px) {
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .brand-logos {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .category-card {
+        padding: 15px 30px;
+    }
+    
+    .category-card img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+    
+    .brand-logos {
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-container {
+        padding: 10px 5px;
+    }
+    
+    .category-card {
+        padding: 10px 15px;
+    }
+    
+    .category-card img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    
+    .tImg {
+        font-size: 1rem;
+    }
+    
+    .brand-logos {
+        gap: 20px;
+    }
+    
+    .brand-logos img {
+        height: 30px;
+    }
 }

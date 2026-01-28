@@ -1,121 +1,154 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <title>ElectroHub</title>
-        <link rel="stylesheet" href="./styles/index.css">
-        <link rel="stylesheet" href="./styles/main.css">
-    </head>
-    <body>
-
-        <header>
-            <div class="header-container">
-                <img src="./images/logo.svg">
-                <nav>
-                    <a href="index.html">Главная</a>
-                    <a href="./pages/catalog.html">Каталог</a>
-                    <a href="#">О нас</a>
-                    <a href="#">Контакты</a>
-                    <div class="more-wrapper">
-                        <span class="more-button">Прочее</span>
-                        <div class="more-options-wrapper">
-                            <a href="#">Избранное</a>
-                            <a href="#">Корзина</a>
-                        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroHub</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="./images/logo.svg" alt="ElectroHub">
+            <button class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav id="mainNav">
+                <a href="index.html">Главная</a>
+                <a href="./pages/catalog.html">Каталог</a>
+                <a href="#">О нас</a>
+                <a href="#">Контакты</a>
+                <div class="more-wrapper">
+                    <span class="more-button">Прочее</span>
+                    <div class="more-options-wrapper">
+                        <a href="#">Избранное</a>
+                        <a href="#">Корзина</a>
                     </div>
-                </nav>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Популярные категории</h2>
+
+        <div class="categories">
+            <div class="category-card">
+                <img src="./images/Obogrev.png" alt="Обогреватель">
+                <p class="tImg">Обогреватель</p>
             </div>
-        </header>
-
-        <main class="container">
-            <h2>Популярные категории</h2>
-
-            <div class="categories">
-                <div class="category-card">
-                    <img src="./images/Obogrev.png">
-                    <p class="tImg">Обогреватель</p>
-                </div>
-                <div class="category-card">
-                    <img src="./images/Telev.png">
-                    <p class="tImg">Телевизоры</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Laptop.png">
-                    <p class="tImg">Ноутбуки</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Chainik.png">
-                    <p class="tImg">Чайники</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Holod.png">
-                    <p class="tImg">Холодильники</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Telef.png">
-                    <p class="tImg">Смартфоны</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Yshi.png">
-                    <p class="tImg">Наушники</p>
-                </div>
-                    <div class="category-card">
-                    <img src="./images/Ytyg.png">
-                    <p class="tImg">Гладильные системы</p>
-                </div>
+            <div class="category-card">
+                <img src="./images/Telev.png" alt="Телевизоры">
+                <p class="tImg">Телевизоры</p>
             </div>
-
-            <div class="brands">
-                <h2>Популярные бренды</h2>
-                <div class="brand-logos">
-                    <div class="BORK">
-                        <img src="./images/bork.png">
-                    </div>
-                    <div class="SAMSUNG">
-                        <img src="./images/samsung.png">
-                    </div>
-                    <div class="Яндекс">
-                        <img src="./images/Yandex.png">
-                    </div>
-                    <div class="SMEG">
-                        <img src="./images/smeg.png">
-                    </div>
-                    <div class="LG">
-                        <img src="./images/lg.png">
-                    </div>
-                </div>
+            <div class="category-card">
+                <img src="./images/Laptop.png" alt="Ноутбуки">
+                <p class="tImg">Ноутбуки</p>
             </div>
-        </main>
+            <div class="category-card">
+                <img src="./images/Chainik.png" alt="Чайники">
+                <p class="tImg">Чайники</p>
+            </div>
+            <div class="category-card">
+                <img src="./images/Holod.png" alt="Холодильники">
+                <p class="tImg">Холодильники</p>
+            </div>
+            <div class="category-card">
+                <img src="./images/Telef.png" alt="Смартфоны">
+                <p class="tImg">Смартфоны</p>
+            </div>
+            <div class="category-card">
+                <img src="./images/Yshi.png" alt="Наушники">
+                <p class="tImg">Наушники</p>
+            </div>
+            <div class="category-card">
+                <img src="./images/Ytyg.png" alt="Гладильные системы">
+                <p class="tImg">Гладильные системы</p>
+            </div>
+        </div>
 
-        <footer>
-            <div class="footer-container">
-                <div>
-                    <p><a href="./index.html">Главная</a></p>
-                    <p><a href="./pages/catalog.html">Каталог</a></p>
+        <div class="brands">
+            <h2>Популярные бренды</h2>
+            <div class="brand-logos">
+                <div class="BORK">
+                    <img src="./images/bork.png" alt="BORK">
                 </div>
-                <div>
-                    <p>О нас</p>
-                    <p>Контакты</p>
+                <div class="SAMSUNG">
+                    <img src="./images/samsung.png" alt="Samsung">
+                </div>
+                <div class="Яндекс">
+                    <img src="./images/Yandex.png" alt="Yandex">
+                </div>
+                <div class="SMEG">
+                    <img src="./images/smeg.png" alt="SMEG">
+                </div>
+                <div class="LG">
+                    <img src="./images/lg.png" alt="LG">
                 </div>
             </div>
-        </footer>
-        <script>
-            const moreOptionsButton = document.querySelector('.more-button');
-            const moreOptions = document.querySelector('.more-options-wrapper');
-            moreOptionsButton.addEventListener('click',(evt) => {
-                if(moreOptions.style.display === 'none'){
-                    moreOptions.style.display = 'flex';
-                }
-                else {
-                    moreOptions.style.display = 'none';
-                }
-            })
-        </script>
-    </body>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <p><a href="./index.html">Главная</a></p>
+                <p><a href="./pages/catalog.html">Каталог</a></p>
+            </div>
+            <div class="footer-links">
+                <p>О нас</p>
+                <p>Контакты</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Бургер-меню
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            
+            // Анимация бургера
+            const bars = menuToggle.querySelectorAll('.bar');
+            bars[0].classList.toggle('bar-open-top');
+            bars[1].classList.toggle('bar-open-middle');
+            bars[2].classList.toggle('bar-open-bottom');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.querySelectorAll('.bar').forEach(bar => {
+                    bar.className = 'bar';
+                });
+            });
+        });
+
+        // Меню "Прочее"
+        const moreOptionsButton = document.querySelector('.more-button');
+        const moreOptions = document.querySelector('.more-options-wrapper');
+        
+        moreOptionsButton.addEventListener('click', (evt) => {
+            evt.stopPropagation();
+            if(moreOptions.style.display === 'none' || moreOptions.style.display === ''){
+                moreOptions.style.display = 'flex';
+            } else {
+                moreOptions.style.display = 'none';
+            }
+        });
+        
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', (evt) => {
+            if (!document.querySelector('.more-wrapper').contains(evt.target)) {
+                moreOptions.style.display = 'none';
+            }
+        });
+    </script>
+</body>
 </html>
-
-
-
-
-
-
