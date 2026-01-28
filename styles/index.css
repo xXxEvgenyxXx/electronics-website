@@ -91,7 +91,7 @@ footer {
 }
 
 .bar-open-top {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(5px, 7.5px);
 }
 
 .bar-open-middle {
@@ -99,7 +99,7 @@ footer {
 }
 
 .bar-open-bottom {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(5px, -7.5px);
 }
 
 /* Адаптивность */
