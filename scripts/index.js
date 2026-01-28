@@ -4,6 +4,7 @@ const products = [
         name: "iPhone 15 Pro",
         price: 129999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "смартфоны",
         brand: "apple",
         image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch?wid=5120&hei=2880&fmt=webp&qlt=70&.v=1693009279096"
@@ -13,6 +14,7 @@ const products = [
         name: "Samsung Galaxy S24",
         price: 89999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "смартфоны",
         brand: "samsung",
         image: "https://images.samsung.com/is/image/samsung/p6pim/ru/2401/gallery/ru-galaxy-s24-s928-sm-s928bzkjser-539113292?$650_519_PNG$"
@@ -22,6 +24,7 @@ const products = [
         name: "Xiaomi Redmi Note 13 Pro",
         price: 34999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "смартфоны",
         brand: "xiaomi",
         image: "https://i02.appmifile.com/870_operator_ru/13/01/2024/57e93ce8b0916765aa44a33ed33d7b0b.png"
@@ -31,6 +34,7 @@ const products = [
         name: "MacBook Air M2",
         price: 149999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "ноутбуки",
         brand: "apple",
         image: "https://www.apple.com/v/macbook-air-m2/b/images/overview/design/design_top_midnight__e2l4fqk9vqqu_medium.png"
@@ -40,6 +44,7 @@ const products = [
         name: "ASUS ROG Zephyrus G14",
         price: 159999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "ноутбуки",
         brand: "asus",
         image: "https://dlcdnwebimgs.asus.com/gain/99DE4F73-CE91-47A4-8A43-1F4C8C6C7849/w1000/h732"
@@ -49,6 +54,7 @@ const products = [
         name: "Lenovo Legion 5 Pro",
         price: 129999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "ноутбуки",
         brand: "lenovo",
         image: "https://www.lenovo.com/medias/lenovo-laptop-legion-5-pro-16-intel-hero.png?context=bWFzdGVyfHJvb3R8MjY1NzE2fGltYWdlL3BuZ3xoNjYvaDdmLzE0MTQ2NTU4MTAyNDE0LnBuZ3w0YzI5ZjRiOTZkYTQyOWY3NjljODZlMjE3ODg1NTEzOWFmYjhlNWQxYWI1NWMwN2NhODViMjVjM2FjN2Y5NDM2"
@@ -58,6 +64,7 @@ const products = [
         name: "Sony WH-1000XM5",
         price: 29999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "наушники",
         brand: "sony",
         image: "https://www.sony.ru/image/ebba5b7a9b405958ae3c9427d81ed370?fmt=png-alpha&wid=960"
@@ -67,6 +74,7 @@ const products = [
         name: "Apple AirPods Pro",
         price: 24999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "наушники",
         brand: "apple",
         image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/airpods-pro-2-hero-select-202409?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1723663706553"
@@ -76,6 +84,7 @@ const products = [
         name: "Sony PlayStation 5",
         price: 64999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "игровые консоли",
         brand: "sony",
         image: "https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$"
@@ -85,6 +94,7 @@ const products = [
         name: "Samsung QLED 4K TV",
         price: 89999,
         isChosen: false,
+        inBasket: false, // Новое поле
         category: "телевизоры",
         brand: "samsung",
         image: "https://images.samsung.com/is/image/samsung/p6pim/ru/qe65q77cauxru/gallery/ru-qled-tv-qe65q77cauxru-535177651?$650_519_PNG$"
@@ -144,15 +154,21 @@ function addToCart(product) {
     const existingProduct = inCart.find(item => item.id === product.id);
     if (!existingProduct) {
         inCart.push(product);
+        product.inBasket = true; // Обновляем свойство товара
         console.log(`Товар "${product.name}" добавлен в корзину`, inCart);
     }
 }
 
-// Функция для удаления товара из корзины
+// Функция для удаления товара из корзины (только для страницы корзины)
 function removeFromCart(productId) {
     const index = inCart.findIndex(item => item.id === productId);
     if (index !== -1) {
         const removedProduct = inCart.splice(index, 1)[0];
+        // Находим товар в основном массиве и обновляем его свойство
+        const productInProducts = products.find(item => item.id === productId);
+        if (productInProducts) {
+            productInProducts.inBasket = false;
+        }
         console.log(`Товар "${removedProduct.name}" удален из корзины`, inCart);
     }
 }
@@ -184,14 +200,19 @@ function renderProducts(productsArray) {
         const addToCartBtn = card.querySelector('.btn-main');
         const addToFavBtn = card.querySelector('.btn-secondary');
         
+        // Устанавливаем начальный текст кнопки корзины
+        addToCartBtn.textContent = 'В корзину';
+        
         // Проверяем начальное состояние
-        const isInCart = inCart.some(item => item.id === product.id);
+        const isInCart = inCart.some(item => item.id === product.id) || product.inBasket;
         const isInChosen = inChosen.some(item => item.id === product.id);
         
         // Устанавливаем начальное состояние кнопки корзины
         if (isInCart) {
             addToCartBtn.textContent = 'В корзине';
             addToCartBtn.disabled = true;
+            addToCartBtn.style.opacity = '0.7';
+            addToCartBtn.style.cursor = 'not-allowed';
         }
         
         // Устанавливаем начальное состояние кнопки избранного
@@ -204,19 +225,16 @@ function renderProducts(productsArray) {
         
         // Добавляем обработчик для кнопки корзины
         addToCartBtn.addEventListener('click', () => {
-            if (addToCartBtn.textContent === 'Добавить в корзину') {
+            if (!product.inBasket && !inCart.some(item => item.id === product.id)) {
                 // Добавляем в корзину
                 addToCart(product);
                 addToCartBtn.textContent = 'В корзине';
                 addToCartBtn.disabled = true;
+                addToCartBtn.style.opacity = '0.7';
+                addToCartBtn.style.cursor = 'not-allowed';
                 console.log(`Товар "${product.name}" добавлен в корзину`);
-            } else {
-                // Удаляем из корзины
-                removeFromCart(product.id);
-                addToCartBtn.textContent = 'Добавить в корзину';
-                addToCartBtn.disabled = false;
-                console.log(`Товар "${product.name}" удален из корзины`);
             }
+            console.log(inCart)
         });
         
         // Добавляем обработчик для кнопки избранного
@@ -238,6 +256,7 @@ function renderProducts(productsArray) {
                 addToFavBtn.style.color = '';
                 console.log(`Товар "${product.name}" удален из избранного`);
             }
+            console.log(inChosen)
         });
         
         // Добавляем карточку в контейнер
