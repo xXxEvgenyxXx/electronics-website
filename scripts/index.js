@@ -12,7 +12,7 @@ const products = [
         id: 2,
         name: "Samsung Galaxy S24",
         price: 89999,
-        isChosen: true,
+        isChosen: false,
         category: "смартфоны",
         brand: "samsung",
         image: "https://images.samsung.com/is/image/samsung/p6pim/ru/2401/gallery/ru-galaxy-s24-s928-sm-s928bzkjser-539113292?$650_519_PNG$"
@@ -48,7 +48,7 @@ const products = [
         id: 6,
         name: "Lenovo Legion 5 Pro",
         price: 129999,
-        isChosen: true,
+        isChosen: false,
         category: "ноутбуки",
         brand: "lenovo",
         image: "https://www.lenovo.com/medias/lenovo-laptop-legion-5-pro-16-intel-hero.png?context=bWFzdGVyfHJvb3R8MjY1NzE2fGltYWdlL3BuZ3xoNjYvaDdmLzE0MTQ2NTU4MTAyNDE0LnBuZ3w0YzI5ZjRiOTZkYTQyOWY3NjljODZlMjE3ODg1NTEzOWFmYjhlNWQxYWI1NWMwN2NhODViMjVjM2FjN2Y5NDM2"
@@ -75,7 +75,7 @@ const products = [
         id: 9,
         name: "Sony PlayStation 5",
         price: 64999,
-        isChosen: true,
+        isChosen: false,
         category: "игровые консоли",
         brand: "sony",
         image: "https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$facebook$"
