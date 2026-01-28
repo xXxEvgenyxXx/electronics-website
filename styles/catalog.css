@@ -56,23 +56,3 @@
 .btn-secondary {
     background: #e5e7eb;
 }
-
-@media (max-width: 768px) {
-    .catalog-layout {
-        flex-direction: column;
-    }
-    
-    .filters {
-        min-width: auto;
-    }
-    
-    .products {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-}
-
-@media (max-width: 480px) {
-    .products {
-        grid-template-columns: 1fr;
-    }
-}
