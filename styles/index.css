@@ -90,6 +90,18 @@ footer {
     transition: 0.3s;
 }
 
+.bar-open-top {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.bar-open-middle {
+    opacity: 0;
+}
+
+.bar-open-bottom {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .header-container {
@@ -131,10 +143,5 @@ footer {
         flex-direction: column;
         gap: 20px;
         text-align: center;
-    }
-    .footer-links {
-        display: flex;
-        flex-direction: column;
-        gap:20px;
     }
 }

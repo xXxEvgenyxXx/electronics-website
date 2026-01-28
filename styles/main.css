@@ -95,9 +95,6 @@
 }
 
 @media (max-width: 480px) {
-    .header-container {
-        padding: 10px 5px;
-    }
     
     .category-card {
         padding: 10px 15px;
