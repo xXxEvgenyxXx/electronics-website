@@ -25,14 +25,15 @@ header {
 }
 
 .logo {
-    font-family:'Orbitron',sans-serif;
-    font-size:1.6rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.6rem;
 }
 
 a {
     text-decoration: none;
     color: #111827;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -40,21 +41,24 @@ a:hover {
 nav {
     display: flex;
 }
+
 .more-button {
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .more-options-wrapper {
     display: none;
-    position:absolute;
+    position: absolute;
     flex-direction: column;
-    top:55px;
-    gap:5px;
-    background-color:#f7f7f7;
-    padding:5px;
-    border:2px solid #1E3A8A;
+    top: 55px;
+    gap: 5px;
+    background-color: #f7f7f7;
+    padding: 5px;
+    border: 2px solid #1E3A8A;
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
 }
+
 nav a {
     margin: 0 10px;
 }
@@ -71,72 +75,43 @@ footer {
     padding: 20px;
     display: flex;
     justify-content: center;
-    gap:100px;
-}
-
-/* Бургер-меню */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: #111827;
-    margin: 3px 0;
-    transition: 0.3s;
-}
-
-.bar-open-top {
-    transform: rotate(45deg) translate(5px, 7.5px);
-}
-
-.bar-open-middle {
-    opacity: 0;
-}
-
-.bar-open-bottom {
-    transform: rotate(-45deg) translate(5px, -7.5px);
+    gap: 100px;
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
     .header-container {
         padding: 10px;
-    }
-    
-    .menu-toggle {
-        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
     
     nav {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background-color: white;
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        z-index: 100;
-    }
-    
-    nav.active {
         display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
     }
     
     nav a {
-        margin: 10px 0;
-        padding: 10px;
-        border-bottom: 1px solid #eee;
+        margin: 5px 0;
+        padding: 8px 0;
     }
     
     .more-wrapper {
-        display: none;
+        display: block;
+        margin: 5px 0;
+    }
+    
+    .more-options-wrapper {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        border: none;
+        padding-left: 15px;
+        margin-top: 5px;
     }
     
     .footer-container {
