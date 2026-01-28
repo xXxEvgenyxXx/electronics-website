@@ -91,6 +91,10 @@ const products = [
     }
 ];
 
+// Массивы для хранения выбранных товаров
+let inChosen = []; // Избранные товары
+let inCart = [];   // Товары в корзине
+
 // Меню "Прочее"
 const moreOptionsButton = document.querySelector('.more-button');
 const moreOptions = document.querySelector('.more-options-wrapper');
@@ -113,6 +117,44 @@ document.addEventListener('click', (evt) => {
 
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
+}
+
+// Функция для добавления товара в избранное
+function addToChosen(product) {
+    // Проверяем, не добавлен ли уже товар
+    const existingProduct = inChosen.find(item => item.id === product.id);
+    if (!existingProduct) {
+        inChosen.push(product);
+        console.log(`Товар "${product.name}" добавлен в избранное`, inChosen);
+    }
+}
+
+// Функция для удаления товара из избранного
+function removeFromChosen(productId) {
+    const index = inChosen.findIndex(item => item.id === productId);
+    if (index !== -1) {
+        const removedProduct = inChosen.splice(index, 1)[0];
+        console.log(`Товар "${removedProduct.name}" удален из избранного`, inChosen);
+    }
+}
+
+// Функция для добавления товара в корзину
+function addToCart(product) {
+    // Проверяем, не добавлен ли уже товар
+    const existingProduct = inCart.find(item => item.id === product.id);
+    if (!existingProduct) {
+        inCart.push(product);
+        console.log(`Товар "${product.name}" добавлен в корзину`, inCart);
+    }
+}
+
+// Функция для удаления товара из корзины
+function removeFromCart(productId) {
+    const index = inCart.findIndex(item => item.id === productId);
+    if (index !== -1) {
+        const removedProduct = inCart.splice(index, 1)[0];
+        console.log(`Товар "${removedProduct.name}" удален из корзины`, inCart);
+    }
 }
 
 // Функция рендеринга карточек товаров
@@ -142,36 +184,61 @@ function renderProducts(productsArray) {
         const addToCartBtn = card.querySelector('.btn-main');
         const addToFavBtn = card.querySelector('.btn-secondary');
         
-        // Добавляем обработчики событий
-        addToCartBtn.addEventListener('click', () => {
-            console.log(`Товар "${product.name}" добавлен в корзину`);
+        // Проверяем начальное состояние
+        const isInCart = inCart.some(item => item.id === product.id);
+        const isInChosen = inChosen.some(item => item.id === product.id);
+        
+        // Устанавливаем начальное состояние кнопки корзины
+        if (isInCart) {
             addToCartBtn.textContent = 'В корзине';
             addToCartBtn.disabled = true;
+        }
+        
+        // Устанавливаем начальное состояние кнопки избранного
+        if (isInChosen) {
+            product.isChosen = true;
+            addToFavBtn.textContent = 'В избранном';
+            addToFavBtn.style.backgroundColor = '#ffebee';
+            addToFavBtn.style.color = '#d32f2f';
+        }
+        
+        // Добавляем обработчик для кнопки корзины
+        addToCartBtn.addEventListener('click', () => {
+            if (addToCartBtn.textContent === 'Добавить в корзину') {
+                // Добавляем в корзину
+                addToCart(product);
+                addToCartBtn.textContent = 'В корзине';
+                addToCartBtn.disabled = true;
+                console.log(`Товар "${product.name}" добавлен в корзину`);
+            } else {
+                // Удаляем из корзины
+                removeFromCart(product.id);
+                addToCartBtn.textContent = 'Добавить в корзину';
+                addToCartBtn.disabled = false;
+                console.log(`Товар "${product.name}" удален из корзины`);
+            }
         });
         
+        // Добавляем обработчик для кнопки избранного
         addToFavBtn.addEventListener('click', () => {
-            const isFavorite = product.isChosen;
-            product.isChosen = !isFavorite;
-            
-            if (product.isChosen) {
+            if (addToFavBtn.textContent === 'Добавить в избранное') {
+                // Добавляем в избранное
+                product.isChosen = true;
+                addToChosen(product);
                 addToFavBtn.textContent = 'В избранном';
                 addToFavBtn.style.backgroundColor = '#ffebee';
                 addToFavBtn.style.color = '#d32f2f';
                 console.log(`Товар "${product.name}" добавлен в избранное`);
             } else {
+                // Удаляем из избранного
+                product.isChosen = false;
+                removeFromChosen(product.id);
                 addToFavBtn.textContent = 'Добавить в избранное';
                 addToFavBtn.style.backgroundColor = '';
                 addToFavBtn.style.color = '';
                 console.log(`Товар "${product.name}" удален из избранного`);
             }
         });
-        
-        // Устанавливаем начальное состояние для избранного
-        if (product.isChosen) {
-            addToFavBtn.textContent = 'В избранном';
-            addToFavBtn.style.backgroundColor = '#ffebee';
-            addToFavBtn.style.color = '#d32f2f';
-        }
         
         // Добавляем карточку в контейнер
         productsContainer.appendChild(card);
@@ -227,6 +294,8 @@ function initCatalog() {
     initFilters();
     
     console.log('Каталог инициализирован. Товаров:', products.length);
+    console.log('Избранные товары:', inChosen);
+    console.log('Товары в корзине:', inCart);
 }
 
 initCatalog();
