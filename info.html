@@ -1,68 +1,226 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <title>О нас — ElectroHub</title>
-        <link rel="stylesheet" href="../styles/index.css">
-        <link rel="stylesheet" href="../styles/about.css"> <!-- Подключаем новый CSS -->
-    </head>
-    <body>
-
-        <header>
-            <div class="header-container">
-                <img src="../images/logo.svg" alt="ElectroHub">
-                <button class="menu-toggle" id="menuToggle">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — ElectroHub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/info.css">
+</head>
+<body>
+    <header class="border-bottom border-primary">
+        <div class="container-xl py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="./images/logo.svg" alt="ElectroHub" class="logo">
+                <!-- Кнопка гамбургер-меню для мобильных -->
+                <button class="btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
                 </button>
-                <nav id="mainNav">
-                    <a href="../index.html">Главная</a>
-                    <a href="./catalog.html">Каталог</a>
-                    <a href="#">О нас</a>
-                    <a href="#">Контакты</a>
-                    <div class="more-wrapper">
-                        <span class="more-button">Прочее</span>
-                        <div class="more-options-wrapper">
-                            <a href="#">Избранное</a>
-                            <a href="#">Корзина</a>
-                        </div>
-                    </div>
+                <!-- Десктопное меню -->
+                <nav class="d-none d-md-flex flex-wrap justify-content-center gap-3">
+                    <a href="index.html" class="text-dark text-decoration-none">Главная</a>
+                    <a href="catalog.html" class="text-dark text-decoration-none">Каталог</a>
+                    <a href="info.html" class="text-dark text-decoration-none">О нас</a>
+                    <a href="#" class="text-dark text-decoration-none">Контакты</a>
+                    <a href="chosen.html" class="text-dark text-decoration-none">Избранное</a>
+                    <a href="basket.html" class="text-dark text-decoration-none">Корзина</a>
                 </nav>
             </div>
-        </header>
+            <!-- Мобильное меню (скрытое по умолчанию) -->
+            <div class="collapse d-md-none" id="mobileMenu">
+                <nav class="d-flex flex-column gap-2 pt-3">
+                    <a href="index.html" class="text-dark text-decoration-none py-1">Главная</a>
+                    <a href="catalog.html" class="text-dark text-decoration-none py-1">Каталог</a>
+                    <a href="info.html" class="text-dark text-decoration-none py-1">О нас</a>
+                    <a href="#" class="text-dark text-decoration-none py-1">Контакты</a>
+                    <a href="chosen.html" class="text-dark text-decoration-none py-1">Избранное</a>
+                    <a href="basket.html" class="text-dark text-decoration-none py-1">Корзина</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-        <!-- Основной контент страницы "О нас" -->
-        <main class="about-container">
-            <h1>О компании ElectroHub</h1>
-            <h2>Инновации и технологии для вашей жизни</h2>
-            <p>ElectroHub — это больше чем просто интернет-магазин электроники. Мы — проводник в мир технологий, который помогает нашим клиентам быть на шаг впереди времени. С 2015 года мы предоставляем доступ к самым современным гаджетам, умной технике и инновационным решениям для дома, работы и развлечений.</p>
-
-            <h2>Наша миссия</h2>
-            <p>Мы стремимся сделать передовые технологии доступными каждому, упрощая выбор и покупку электроники. Наша цель — не просто продавать устройства, а предлагать решения, которые улучшают качество жизни наших клиентов, делая ее удобнее, продуктивнее и интереснее.</p>
-
-            <h2>Наши ценности</h2>
-            <ul>
-                <li>Качество прежде всего: мы работаем только с официальными поставщиками и проверенными брендами. Каждый товар в нашем каталоге проходит тщательный отбор.</li>
-                <li>Честность и прозрачность: прозрачные цены, подробные описания, реальные фотографии и отзывы — мы верим, что информированный покупатель делает лучший выбор.</li>
-                <li>Клиентоориентированность: ваши потребности — наш приоритет. Мы не просто продаем технику, мы помогаем подобрать оптимальное решение для ваших задач.</li>
-                <li>Экспертиза и профессионализм: наша команда состоит из энтузиастов технологий, которые регулярно проходят обучение и знают о продуктах всё.</li>
-                <li>Ответственность: от момента заказа до постгарантийного обслуживания — мы несем полную ответственность за каждый проданный товар.</li>
-            </ul>
-        </main>
-
-        <footer>
-            <div class="footer-container">
-                <div>
-                    <p><a href="../index.html">Главная</a></p>
-                    <p><a href="./catalog.html">Каталог</a></p>
+    <main class="container-xl my-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Заголовок страницы -->
+                <div class="text-center mb-5">
+                    <h1 class="mb-3">О компании ElectroHub</h1>
+                    <h2 class="h4 text-muted mb-4">Инновации и технологии для вашей жизни</h2>
                 </div>
-                <div>
-                    <p>О нас</p>
-                    <p>Контакты</p>
+                
+                <!-- Блок с описанием компании -->
+                <div class="card mb-4 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <p class="card-text lead">
+                            ElectroHub — это больше чем просто интернет-магазин электроники. Мы — проводник в мир технологий, 
+                            который помогает нашим клиентам быть на шаг впереди времени. С 2015 года мы предоставляем доступ 
+                            к самым современным гаджетам, умной технике и инновационным решениям для дома, работы и развлечений.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Блок с миссией -->
+                <div class="card mb-4 border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h5 mb-0">Наша миссия</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="card-text">
+                            Мы стремимся сделать передовые технологии доступными каждому, упрощая выбор и покупку электроники. 
+                            Наша цель — не просто продавать устройства, а предлагать решения, которые улучшают качество жизни 
+                            наших клиентов, делая ее удобнее, продуктивнее и интереснее.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Блок с ценностями -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Наши ценности</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="value-item mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1E3A8A" class="bi bi-award" viewBox="0 0 16 16">
+                                                <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
+                                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-1">Качество прежде всего</h4>
+                                            <p class="mb-0 small text-muted">Мы работаем только с официальными поставщиками и проверенными брендами. Каждый товар в нашем каталоге проходит тщательный отбор.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="value-item mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1E3A8A" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-1">Клиентоориентированность</h4>
+                                            <p class="mb-0 small text-muted">Ваши потребности — наш приоритет. Мы не просто продаем технику, мы помогаем подобрать оптимальное решение для ваших задач.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="value-item">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1E3A8A" class="bi bi-shield-check" viewBox="0 0 16 16">
+                                                <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+                                                <path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-1">Ответственность</h4>
+                                            <p class="mb-0 small text-muted">От момента заказа до постгарантийного обслуживания — мы несем полную ответственность за каждый проданный товар.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="value-item mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1E3A8A" class="bi bi-eye" viewBox="0 0 16 16">
+                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-1">Честность и прозрачность</h4>
+                                            <p class="mb-0 small text-muted">Прозрачные цены, подробные описания, реальные фотографии и отзывы — мы верим, что информированный покупатель делает лучший выбор.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="value-item mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="me-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1E3A8A" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                                <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                                <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="h6 mb-1">Экспертиза и профессионализм</h4>
+                                            <p class="mb-0 small text-muted">Наша команда состоит из энтузиастов технологий, которые регулярно проходят обучение и знают о продуктах всё.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Блок с достижениями -->
+                <div class="card mb-4 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="h5 mb-0">Наши достижения</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-3">
+                                <div class="display-6 fw-bold text-primary">9+</div>
+                                <div class="text-muted">Лет на рынке</div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="display-6 fw-bold text-primary">50,000+</div>
+                                <div class="text-muted">Довольных клиентов</div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="display-6 fw-bold text-primary">100+</div>
+                                <div class="text-muted">Брендов в каталоге</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Призыв к действию -->
+                <div class="text-center mt-5">
+                    <h3 class="h4 mb-3">Готовы к покупкам?</h3>
+                    <p class="text-muted mb-4">Откройте для себя мир современных технологий вместе с ElectroHub</p>
+                    <a href="catalog.html" class="btn btn-primary btn-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                        </svg>
+                        Перейти в каталог
+                    </a>
                 </div>
             </div>
-        </footer>
-        <script src="../scripts/index.js"></script>
-    </body>
+        </div>
+    </main>
+
+    <footer class="border-top border-primary mt-auto">
+        <div class="container-xl py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-6">
+                    <p><a href="./index.html" class="text-dark text-decoration-none">Главная</a></p>
+                    <p><a href="./catalog.html" class="text-dark text-decoration-none">Каталог</a></p>
+                </div>
+                <div class="col-md-6">
+                    <p><a href="./info.html" class="text-dark text-decoration-none">О нас</a></p>
+                    <p><a href="#" class="text-dark text-decoration-none">Контакты</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/index.js"></script>
+</body>
 </html>
