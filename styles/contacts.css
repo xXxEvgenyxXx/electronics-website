@@ -1,0 +1,162 @@
+/* CONTACTS PAGE - Страница контактов */
+.lead {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.contact-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 58, 138, 0.1);
+    border-radius: 50%;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #1E3A8A;
+    box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.form-label:after {
+    content: " *";
+    color: #dc3545;
+}
+
+.form-label[for="contactPhone"]:after,
+.form-label[for="contactAgree"]:after {
+    content: "";
+}
+
+.btn-lg {
+    padding: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.btn-lg:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+}
+
+.map-placeholder {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px dashed #adb5bd;
+}
+
+.list-unstyled li {
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+.list-unstyled strong {
+    color: #111827;
+    display: inline-block;
+    min-width: 150px;
+}
+
+.text-muted.small {
+    font-size: 0.85rem;
+}
+
+/* Иконки */
+.bi {
+    vertical-align: -0.125em;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 20px !important;
+    }
+    
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .contact-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .btn-lg {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+    
+    .list-unstyled strong {
+        min-width: 120px;
+    }
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Задержки анимации для последовательного появления */
+.contact-card:nth-child(1) { animation-delay: 0.1s; }
+.contact-card:nth-child(2) { animation-delay: 0.2s; }
+.contact-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* Стили для ссылок в контактах */
+a[href^="tel:"], 
+a[href^="mailto:"] {
+    color: #1E3A8A;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+a[href^="tel:"]:hover, 
+a[href^="mailto:"]:hover {
+    color: #0f2a6e;
+    text-decoration: underline;
+}
