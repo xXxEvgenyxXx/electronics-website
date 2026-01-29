@@ -1,0 +1,107 @@
+/* DELIVERY PAGE - Страница оформления доставки */
+.delivery-description {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.card {
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    font-weight: 600;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #1E3A8A;
+    box-shadow: 0 0 0 0.2rem rgba(30, 58, 138, 0.25);
+}
+
+.payment-options .form-check-label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.payment-options .form-check-input {
+    margin-top: 0.3rem;
+}
+
+.order-item {
+    padding-bottom: 10px;
+}
+
+.order-item:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0;
+}
+
+.order-item-name {
+    color: #111827;
+    font-size: 0.95rem;
+}
+
+.order-item-price {
+    color: #1E3A8A;
+    font-size: 0.95rem;
+}
+
+.submit-btn {
+    padding: 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 15px;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    .form-control, .form-select {
+        padding: 8px 12px;
+    }
+}
+
+/* Иконки в кнопках */
+.btn svg {
+    vertical-align: -0.125em;
+}
+
+/* Стили для обязательных полей */
+.form-label:after {
+    content: " *";
+    color: #dc3545;
+}
+
+.form-label[for="building"]:after,
+.form-label[for="subscribeNews"]:after {
+    content: "";
+}
