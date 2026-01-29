@@ -1,3 +1,4 @@
+// index.js - общий файл для всего приложения
 const products = [
     {
         id: 1,
@@ -105,8 +106,21 @@ const products = [
 let inChosen = [];
 let inCart = [];
 
+// Вспомогательные переменные для избранного
+let favoriteProducts = [];
+let addedDates = {}; // Хранение дат добавления в избранное
+
+// Форматирование цены
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
+}
+
+// Форматирование даты
+function formatDate(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
 }
 
 // Функция для добавления товара в избранное
@@ -114,6 +128,11 @@ function addToChosen(product) {
     const existingProduct = inChosen.find(item => item.id === product.id);
     if (!existingProduct) {
         inChosen.push(product);
+        
+        // Сохраняем дату добавления
+        addedDates[product.id] = new Date();
+        localStorage.setItem('electrohub_added_dates', JSON.stringify(addedDates));
+        
         saveToLocalStorage();
         console.log(`Товар "${product.name}" добавлен в избранное`, inChosen);
     }
@@ -124,6 +143,11 @@ function removeFromChosen(productId) {
     const index = inChosen.findIndex(item => item.id === productId);
     if (index !== -1) {
         const removedProduct = inChosen.splice(index, 1)[0];
+        
+        // Удаляем дату добавления
+        delete addedDates[productId];
+        localStorage.setItem('electrohub_added_dates', JSON.stringify(addedDates));
+        
         saveToLocalStorage();
         console.log(`Товар "${removedProduct.name}" удален из избранного`, inChosen);
     }
@@ -154,9 +178,11 @@ function removeFromCart(productId) {
     }
 }
 
-// Функция рендеринга карточек товаров
+// Функция рендеринга карточек товаров (для каталога)
 function renderProducts(productsArray) {
     const productsContainer = document.querySelector('.products');
+    if (!productsContainer) return; // Если не на странице каталога
+    
     const template = document.querySelector('.card-template');
     
     // Очищаем контейнер
@@ -239,6 +265,11 @@ function renderProducts(productsArray) {
                 addToFavBtn.style.color = '#d32f2f';
                 addToFavBtn.style.borderColor = '#ffebee';
                 console.log(`Товар "${product.name}" добавлен в избранное`);
+                
+                // Если мы на странице избранного, обновляем ее
+                if (window.location.pathname.includes('chosen.html')) {
+                    loadAndRenderFavorites();
+                }
             } else {
                 product.isChosen = false;
                 removeFromChosen(product.id);
@@ -249,6 +280,11 @@ function renderProducts(productsArray) {
                 addToFavBtn.style.color = '';
                 addToFavBtn.style.borderColor = '';
                 console.log(`Товар "${product.name}" удален из избранного`);
+                
+                // Если мы на странице избранного, обновляем ее
+                if (window.location.pathname.includes('chosen.html')) {
+                    loadAndRenderFavorites();
+                }
             }
         });
         
@@ -256,7 +292,249 @@ function renderProducts(productsArray) {
     });
 }
 
-// Функция для инициализации фильтров
+// Загрузка избранных товаров из localStorage (для страницы избранного)
+function loadFavoritesFromLocalStorage() {
+    const chosenIds = JSON.parse(localStorage.getItem('electrohub_chosen') || '[]');
+    
+    // Загружаем сохраненные даты добавления
+    const savedDates = JSON.parse(localStorage.getItem('electrohub_added_dates') || '{}');
+    addedDates = savedDates;
+    
+    // Очищаем массив
+    favoriteProducts = [];
+    
+    // Находим товары по ID и добавляем дату добавления
+    chosenIds.forEach(id => {
+        const product = products.find(p => p.id === id);
+        if (product) {
+            const favoriteProduct = {
+                ...product,
+                addedDate: addedDates[id] ? new Date(addedDates[id]) : new Date()
+            };
+            favoriteProducts.push(favoriteProduct);
+        }
+    });
+    
+    return favoriteProducts;
+}
+
+// Получение категорий из избранных товаров
+function getCategoriesFromFavorites() {
+    const categories = {};
+    
+    favoriteProducts.forEach(product => {
+        const category = product.category;
+        if (categories[category]) {
+            categories[category].count++;
+        } else {
+            categories[category] = {
+                count: 1,
+                name: category
+            };
+        }
+    });
+    
+    return categories;
+}
+
+// Рендеринг фильтров по категориям (для страницы избранного)
+function renderCategoryFilters() {
+    const container = document.getElementById('categoryFilters');
+    if (!container) return; // Если не на странице избранного
+    
+    const categories = getCategoriesFromFavorites();
+    
+    container.innerHTML = '';
+    
+    Object.values(categories).forEach(category => {
+        const div = document.createElement('div');
+        div.className = 'form-check mb-2';
+        div.innerHTML = `
+            <input class="form-check-input category-filter" type="checkbox" id="category-${category.name}" value="${category.name}">
+            <label class="form-check-label" for="category-${category.name}">
+                ${category.name.charAt(0).toUpperCase() + category.name.slice(1)} (${category.count})
+            </label>
+        `;
+        container.appendChild(div);
+    });
+    
+    // Добавляем обработчики событий
+    document.querySelectorAll('.category-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', filterFavorites);
+    });
+}
+
+// Фильтрация избранных товаров
+function filterFavorites() {
+    const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked'))
+        .map(cb => cb.value.toLowerCase());
+    
+    const sortSelect = document.getElementById('sortSelect');
+    if (!sortSelect) return;
+    
+    const sortValue = sortSelect.value;
+    
+    let filteredProducts = [...favoriteProducts];
+    
+    // Фильтрация по категориям
+    if (selectedCategories.length > 0) {
+        filteredProducts = filteredProducts.filter(product => 
+            selectedCategories.includes(product.category.toLowerCase())
+        );
+    }
+    
+    // Сортировка
+    filteredProducts.sort((a, b) => {
+        switch (sortValue) {
+            case 'price-asc':
+                return a.price - b.price;
+            case 'price-desc':
+                return b.price - a.price;
+            case 'name':
+                return a.name.localeCompare(b.name);
+            case 'date':
+            default:
+                return new Date(b.addedDate) - new Date(a.addedDate);
+        }
+    });
+    
+    renderFavorites(filteredProducts);
+}
+
+// Рендеринг избранных товаров
+function renderFavorites(productsToRender) {
+    const container = document.getElementById('favoritesContainer');
+    const emptyState = document.getElementById('emptyFavorites');
+    const favoritesGrid = document.getElementById('favoritesGrid');
+    const favoritesSummary = document.getElementById('favoritesSummary');
+    const template = document.getElementById('favoriteCardTemplate');
+    
+    if (!container) return; // Если не на странице избранного
+    
+    container.innerHTML = '';
+    
+    if (productsToRender.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        if (favoritesGrid) favoritesGrid.style.display = 'none';
+        if (favoritesSummary) favoritesSummary.style.display = 'none';
+        return;
+    }
+    
+    if (emptyState) emptyState.style.display = 'none';
+    if (favoritesGrid) favoritesGrid.style.display = 'block';
+    if (favoritesSummary) favoritesSummary.style.display = 'block';
+    
+    // Обновляем итоговую информацию
+    updateSummary(productsToRender);
+    
+    productsToRender.forEach((product, index) => {
+        const card = template.content.cloneNode(true).querySelector('.col');
+        
+        const cardElement = card.querySelector('.product-card');
+        cardElement.style.animationDelay = `${index * 0.05}s`;
+        
+        // Заполняем данными
+        const img = card.querySelector('img');
+        img.src = product.image;
+        img.alt = product.name;
+        
+        const title = card.querySelector('.card-title');
+        title.textContent = product.name;
+        
+        const category = card.querySelector('.favorite-category');
+        category.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+        
+        const price = card.querySelector('.good-price');
+        price.textContent = formatPrice(product.price);
+        
+        const addedDate = card.querySelector('.added-date-text');
+        addedDate.textContent = formatDate(new Date(product.addedDate));
+        
+        // Добавляем обработчики событий
+        const addToCartBtn = card.querySelector('.add-to-cart-btn');
+        const removeBtn = card.querySelector('.remove-btn');
+        
+        addToCartBtn.addEventListener('click', () => {
+            addToCart(product);
+            addToCartBtn.textContent = 'В корзине';
+            addToCartBtn.disabled = true;
+            addToCartBtn.classList.remove('btn-primary');
+            addToCartBtn.classList.add('btn-secondary');
+        });
+        
+        removeBtn.addEventListener('click', () => {
+            removeFromChosen(product.id);
+            cardElement.classList.add('fade-out');
+            setTimeout(() => {
+                loadAndRenderFavorites();
+            }, 300);
+        });
+        
+        // Проверяем, есть ли товар уже в корзине
+        const cartIds = JSON.parse(localStorage.getItem('electrohub_cart') || '[]');
+        if (cartIds.includes(product.id)) {
+            addToCartBtn.textContent = 'В корзине';
+            addToCartBtn.disabled = true;
+            addToCartBtn.classList.remove('btn-primary');
+            addToCartBtn.classList.add('btn-secondary');
+        }
+        
+        container.appendChild(card);
+    });
+}
+
+// Обновление итоговой информации на странице избранного
+function updateSummary(productsToShow) {
+    const totalItems = document.getElementById('totalItems');
+    const totalPrice = document.getElementById('totalPrice');
+    
+    if (!totalItems || !totalPrice) return;
+    
+    const count = productsToShow.length;
+    const total = productsToShow.reduce((sum, product) => sum + product.price, 0);
+    
+    totalItems.textContent = count;
+    totalPrice.textContent = formatPrice(total);
+}
+
+// Добавление всех товаров в корзину
+function addAllToCart() {
+    favoriteProducts.forEach(product => {
+        addToCart(product);
+    });
+    
+    // Обновляем кнопки
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.textContent = 'В корзине';
+        btn.disabled = true;
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-secondary');
+    });
+    
+    alert('Все товары добавлены в корзину!');
+}
+
+// Очистка всех избранных товаров
+function clearAllFavorites() {
+    if (confirm('Вы уверены, что хотите очистить все избранные товары?')) {
+        localStorage.removeItem('electrohub_chosen');
+        localStorage.removeItem('electrohub_added_dates');
+        inChosen = [];
+        favoriteProducts = [];
+        addedDates = {};
+        loadAndRenderFavorites();
+        alert('Все товары удалены из избранного');
+    }
+}
+
+// Загрузка и рендеринг избранных товаров
+function loadAndRenderFavorites() {
+    loadFavoritesFromLocalStorage();
+    renderCategoryFilters();
+    renderFavorites(favoriteProducts);
+}
+
+// Функция для инициализации фильтров (для каталога)
 function initFilters() {
     const brandCheckboxes = document.querySelectorAll('input[data-filter="brand"]');
     const categoryCheckboxes = document.querySelectorAll('input[data-filter="category"]');
@@ -269,7 +547,7 @@ function initFilters() {
     });
 }
 
-// Функция фильтрации товаров с логическим И
+// Функция фильтрации товаров с логическим И (для каталога)
 function filterProducts() {
     const checkedCheckboxes = Array.from(
         document.querySelectorAll('input[type="checkbox"]:checked')
@@ -356,7 +634,7 @@ function loadFromLocalStorage() {
     });
 }
 
-// Функция инициализации страницы
+// Функция инициализации каталога
 function initCatalog() {
     // Загружаем сохраненные данные
     loadFromLocalStorage();
@@ -383,5 +661,59 @@ function initCatalog() {
     });
 }
 
+// Функция инициализации страницы избранного
+function initChosenPage() {
+    // Загружаем сохраненные данные
+    loadFromLocalStorage();
+    loadAndRenderFavorites();
+    
+    // Обработчики событий
+    const sortSelect = document.getElementById('sortSelect');
+    const clearFavoritesBtn = document.getElementById('clearFavoritesBtn');
+    const addAllToCartBtn = document.getElementById('addAllToCartBtn');
+    
+    if (sortSelect) {
+        sortSelect.addEventListener('change', filterFavorites);
+    }
+    
+    if (clearFavoritesBtn) {
+        clearFavoritesBtn.addEventListener('click', clearAllFavorites);
+    }
+    
+    if (addAllToCartBtn) {
+        addAllToCartBtn.addEventListener('click', addAllToCart);
+    }
+    
+    console.log('Страница избранного инициализирована. Избранных товаров:', favoriteProducts.length);
+}
+
+// Функция инициализации главной страницы
+function initMainPage() {
+    // Можно добавить функциональность для главной страницы
+    console.log('Главная страница инициализирована');
+}
+
+// Основная функция инициализации
+function initApp() {
+    console.log('Инициализация приложения...');
+    
+    // Загружаем данные из localStorage
+    loadFromLocalStorage();
+    
+    // Определяем, на какой странице мы находимся
+    const path = window.location.pathname;
+    
+    if (path.includes('catalog.html')) {
+        initCatalog();
+    } else if (path.includes('chosen.html')) {
+        initChosenPage();
+    } else if (path.includes('index.html') || path === '/' || path.endsWith('/')) {
+        initMainPage();
+    } else {
+        // Для других страниц
+        console.log('Другая страница');
+    }
+}
+
 // Инициализируем при загрузке страницы
-document.addEventListener('DOMContentLoaded', initCatalog);
+document.addEventListener('DOMContentLoaded', initApp);

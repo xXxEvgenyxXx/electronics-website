@@ -1,164 +1,135 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <title>Избранное — ElectroHub</title>
-        <link rel="stylesheet" href="./styles/index.css">
-        <link rel="stylesheet" href="./styles/chosen.css">
-    </head>
-    <body>
-
-    <header>
-        <div class="header-container">
-            <img src="./images/logo.svg">
-            <nav>
-                <a href="index.html">Главная</a>
-                <a href="./pages/catalog.html">Каталог</a>
-                <a href="#">О нас</a>
-                <a href="#">Контакты</a>
-                <div class="more-wrapper">
-                    <span class="more-button">Прочее</span>
-                    <div class="more-options-wrapper">
-                        <a href="#">Избранное</a>
-                        <a href="#">Корзина</a>
-                    </div>
-                </div>
-            </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное — ElectroHub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/chosen.css">
+</head>
+<body>
+    <header class="border-bottom border-primary">
+        <div class="container-xl py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="./images/logo.svg" alt="ElectroHub" class="logo">
+                <!-- Кнопка гамбургер-меню для мобильных -->
+                <button class="btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <!-- Десктопное меню -->
+                <nav class="d-none d-md-flex flex-wrap justify-content-center gap-3">
+                    <a href="index.html" class="text-dark text-decoration-none">Главная</a>
+                    <a href="./catalog.html" class="text-dark text-decoration-none">Каталог</a>
+                    <a href="#" class="text-dark text-decoration-none">О нас</a>
+                    <a href="#" class="text-dark text-decoration-none">Контакты</a>
+                    <a href="./chosen.html" class="text-dark text-decoration-none">Избранное</a>
+                    <a href="#" class="text-dark text-decoration-none">Корзина</a>
+                </nav>
+            </div>
+            <!-- Мобильное меню (скрытое по умолчанию) -->
+            <div class="collapse d-md-none" id="mobileMenu">
+                <nav class="d-flex flex-column gap-2 pt-3">
+                    <a href="index.html" class="text-dark text-decoration-none py-1">Главная</a>
+                    <a href="./catalog.html" class="text-dark text-decoration-none py-1">Каталог</a>
+                    <a href="#" class="text-dark text-decoration-none py-1">О нас</a>
+                    <a href="#" class="text-dark text-decoration-none py-1">Контакты</a>
+                    <a href="./chosen.html" class="text-dark text-decoration-none py-1">Избранное</a>
+                    <a href="#" class="text-dark text-decoration-none py-1">Корзина</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <h1>Избранные товары</h1>
-        <p class="favorites-description">Здесь собраны товары, которые вы добавили в избранное для быстрого доступа</p>
+    <main class="container-xl my-4">
+        <h1 class="mb-3">Избранные товары</h1>
+        <p class="favorites-description mb-4">Здесь собраны товары, которые вы добавили в избранное для быстрого доступа</p>
         
-        <div class="favorites-layout">
-            <div class="filters">
-                <h3>Сортировка</h3>
-                <select class="sort-select">
-                    <option>По дате добавления</option>
-                    <option>По цене (сначала дешевые)</option>
-                    <option>По цене (сначала дорогие)</option>
-                    <option>По популярности</option>
-                </select>
-                
-                <h3>Категории в избранном</h3>
-                <label><input type="checkbox"> Смартфоны (3)</label>
-                <label><input type="checkbox"> Ноутбуки (2)</label>
-                <label><input type="checkbox"> Наушники (1)</label>
-                <label><input type="checkbox"> Телевизоры (1)</label>
-                
-                <button class="clear-favorites-btn">Очистить избранное</button>
-            </div>
+        <div class="row">
             
-            <section class="favorites-items">
-                <div class="empty-state" id="empty-favorites" style="display: none;">
-                    <img src="./images/heart-empty.svg" alt="Пустое избранное" style="width: 100px; margin: 20px auto; display: block;">
-                    <h3>В избранном пока ничего нет</h3>
-                    <p>Добавляйте товары в избранное, чтобы они были всегда под рукой</p>
-                    <a href="catalog.html" class="btn-main">Перейти в каталог</a>
+            <!-- Основной контент с избранными товарами -->
+            <section class="col-lg-9">
+                <!-- Пустое состояние -->
+                <div class="empty-state text-center p-5 mb-4 border rounded-3" id="emptyFavorites">
+                    <img src="./images/heart-empty.svg" alt="Пустое избранное" class="mb-3" style="width: 100px;">
+                    <h3 class="mb-3">В избранном пока ничего нет</h3>
+                    <p class="mb-4">Добавляйте товары в избранное, чтобы они были всегда под рукой</p>
+                    <a href="./catalog.html" class="btn btn-primary btn-lg">Перейти в каталог</a>
                 </div>
                 
-                <div class="favorites-grid" id="favorites-grid">
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/iPhone.png" alt="iPhone 15 Pro">
-                        <h3>iPhone 15 Pro</h3>
-                        <p class="favorite-category">Смартфон</p>
-                        <p class="price">89 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 15.03.2024</div>
-                    </div>
-                    
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/MacBook.png" alt="MacBook Air M2">
-                        <h3>MacBook Air M2</h3>
-                        <p class="favorite-category">Ноутбук</p>
-                        <p class="price">119 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 10.03.2024</div>
-                    </div>
-                    
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/SonyTV.png" alt="Sony Bravia">
-                        <h3>Sony Bravia 55"</h3>
-                        <p class="favorite-category">Телевизор</p>
-                        <p class="price">64 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 05.03.2024</div>
-                    </div>
-                    
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/SamsungPhone.png" alt="Samsung Galaxy">
-                        <h3>Samsung Galaxy S24</h3>
-                        <p class="favorite-category">Смартфон</p>
-                        <p class="price">79 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 01.03.2024</div>
-                    </div>
-                    
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/Headphones.png" alt="Sony Headphones">
-                        <h3>Sony WH-1000XM5</h3>
-                        <p class="favorite-category">Наушники</p>
-                        <p class="price">29 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 28.02.2024</div>
-                    </div>
-
-                    <div class="favorite-card">
-                        <div class="favorite-badge">В избранном</div>
-                        <img src="./images/Lenovo.png" alt="Lenovo Yoga">
-                        <h3>Lenovo Yoga 9i</h3>
-                        <p class="favorite-category">Ноутбук</p>
-                        <p class="price">94 990 ₽</p>
-                        <div class="favorite-actions">
-                            <button class="btn-main">В корзину</button>
-                            <button class="btn-remove">Удалить</button>
-                        </div>
-                        <div class="added-date">Добавлено: 25.02.2024</div>
+                <!-- Сетка избранных товаров -->
+                <div class="favorites-grid mb-4" id="favoritesGrid">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4" id="favoritesContainer">
+                        <!-- Товары будут добавлены динамически -->
                     </div>
                 </div>
                 
-                <div class="favorites-summary">
-                    <p>Всего товаров в избранном: <strong>6</strong></p>
-                    <p>Общая стоимость: <strong>479 940 ₽</strong></p>
-                    <button class="btn-add-all">Добавить все в корзину</button>
+                <!-- Итоговая информация -->
+                <div class="favorites-summary rounded-3 p-4" id="favoritesSummary" style="display: none;">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <p class="text-white mb-2">Всего товаров в избранном: <strong class="fs-5" id="totalItems">0</strong></p>
+                            <p class="text-white mb-0">Общая стоимость: <strong class="fs-5" id="totalPrice">0 ₽</strong></p>
+                        </div>
+                        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                            <button class="btn btn-warning btn-lg" id="addAllToCartBtn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus me-2" viewBox="0 0 16 16">
+                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                </svg>
+                                Добавить все в корзину
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-container">
-            <div>
-                <p><a href="../index.html">Главная</a></p>
-                <p><a href="./catalog.html">Каталог</a></p>
-            </div>
-            <div>
-                <p>О нас</p>
-                <p>Контакты</p>
+    <footer class="border-top border-primary mt-auto">
+        <div class="container-xl py-4">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-6">
+                    <p><a href="index.html" class="text-dark text-decoration-none">Главная</a></p>
+                    <p><a href="./catalog.html" class="text-dark text-decoration-none">Каталог</a></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="m-0">О нас</p>
+                    <p class="m-0">Контакты</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    </body>
+    <!-- Шаблон карточки товара -->
+    <template id="favoriteCardTemplate">
+        <div class="col">
+            <div class="card product-card h-100 border rounded-3 position-relative">
+                <div class="position-absolute top-0 end-0 m-2">
+                    <span class="badge bg-danger">В избранном</span>
+                </div>
+                <img src="" class="card-img-top p-3" alt="" style="height: 180px; object-fit: contain;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"></h5>
+                    <p class="text-muted mb-2 favorite-category"></p>
+                    <p class="card-text good-price fw-bold text-primary mb-3"></p>
+                    <div class="mt-auto">
+                        <button class="btn btn-primary w-100 mb-2 add-to-cart-btn">В корзину</button>
+                        <button class="btn btn-outline-danger w-100 remove-btn">Удалить</button>
+                    </div>
+                    <div class="added-date text-muted small mt-3 pt-2 border-top">
+                        <small>Добавлено: <span class="added-date-text"></span></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/index.js"></script>
+</body>
 </html>
