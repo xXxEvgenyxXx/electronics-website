@@ -154,12 +154,12 @@ function removeFromChosen(productId) {
 }
 
 // Функция для добавления товара в корзину
-function addToCart(product) {
+function addToCart(product, quantity = 1) {
     const existingProduct = inCart.find(item => item.id === product.id);
     if (!existingProduct) {
-        inCart.push(product);
+        inCart.push({...product, quantity});
         product.inBasket = true;
-        saveToLocalStorage();
+        saveCartToLocalStorage();
         console.log(`Товар "${product.name}" добавлен в корзину`, inCart);
     }
 }
@@ -173,7 +173,7 @@ function removeFromCart(productId) {
         if (productInProducts) {
             productInProducts.inBasket = false;
         }
-        saveToLocalStorage();
+        saveCartToLocalStorage();
         console.log(`Товар "${removedProduct.name}" удален из корзины`, inCart);
     }
 }
@@ -614,6 +614,7 @@ function saveToLocalStorage() {
 function loadFromLocalStorage() {
     const chosenIds = JSON.parse(localStorage.getItem('electrohub_chosen') || '[]');
     const cartIds = JSON.parse(localStorage.getItem('electrohub_cart') || '[]');
+    const quantities = JSON.parse(localStorage.getItem('electrohub_cart_quantities') || '{}');
     
     // Восстанавливаем избранные товары
     chosenIds.forEach(id => {
@@ -624,12 +625,15 @@ function loadFromLocalStorage() {
         }
     });
     
-    // Восстанавливаем корзину
+    // Восстанавливаем корзину с количествами
     cartIds.forEach(id => {
         const product = products.find(p => p.id === id);
         if (product && !inCart.some(p => p.id === id)) {
             product.inBasket = true;
-            inCart.push(product);
+            inCart.push({
+                ...product,
+                quantity: quantities[id] || 1
+            });
         }
     });
 }
@@ -692,15 +696,16 @@ function initChosenPage() {
 // Загрузка товаров корзины из localStorage
 function loadCartFromLocalStorage() {
     const cartIds = JSON.parse(localStorage.getItem('electrohub_cart') || '[]');
+    const quantities = JSON.parse(localStorage.getItem('electrohub_cart_quantities') || '{}');
     const cartProducts = [];
     
     cartIds.forEach(id => {
         const product = products.find(p => p.id === id);
         if (product) {
-            // Добавляем количество (по умолчанию 1)
+            // Добавляем количество из сохраненных данных или 1 по умолчанию
             const cartProduct = {
                 ...product,
-                quantity: 1
+                quantity: quantities[id] || 1
             };
             cartProducts.push(cartProduct);
         }
@@ -718,11 +723,10 @@ function renderCartItems() {
     
     if (!container) return; // Если не на странице корзины
     
-    const cartProducts = loadCartFromLocalStorage();
-    
+    // Используем глобальный массив inCart вместо локальной загрузки
     container.innerHTML = '';
     
-    if (cartProducts.length === 0) {
+    if (inCart.length === 0) {
         if (emptyCart) emptyCart.style.display = 'block';
         if (cartFooter) cartFooter.style.display = 'none';
         return;
@@ -731,7 +735,7 @@ function renderCartItems() {
     if (emptyCart) emptyCart.style.display = 'none';
     if (cartFooter) cartFooter.style.display = 'block';
     
-    cartProducts.forEach((product, index) => {
+    inCart.forEach((product, index) => {
         const item = template.content.cloneNode(true).querySelector('.cart-item');
         
         // Заполняем данными
@@ -744,9 +748,6 @@ function renderCartItems() {
         
         const category = item.querySelector('.cart-item-category');
         category.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
-        
-        const price = item.querySelector('.cart-item-price');
-        price.textContent = formatPrice(product.price);
         
         const quantityValue = item.querySelector('.quantity-value');
         quantityValue.textContent = product.quantity || 1;
@@ -799,13 +800,11 @@ function updateCartSummary() {
     
     if (!totalPrice || !totalItems) return;
     
-    const cartProducts = loadCartFromLocalStorage();
-    
-    const total = cartProducts.reduce((sum, product) => {
+    const total = inCart.reduce((sum, product) => {
         return sum + (product.price * (product.quantity || 1));
     }, 0);
     
-    const itemsCount = cartProducts.reduce((count, product) => {
+    const itemsCount = inCart.reduce((count, product) => {
         return count + (product.quantity || 1);
     }, 0);
     
@@ -815,13 +814,12 @@ function updateCartSummary() {
 
 // Сохранение корзины в localStorage
 function saveCartToLocalStorage() {
-    const cartProducts = loadCartFromLocalStorage();
-    const cartIds = cartProducts.map(p => p.id);
+    const cartIds = inCart.map(p => p.id);
     localStorage.setItem('electrohub_cart', JSON.stringify(cartIds));
     
     // Сохраняем количество товаров
     const quantities = {};
-    cartProducts.forEach(product => {
+    inCart.forEach(product => {
         quantities[product.id] = product.quantity || 1;
     });
     localStorage.setItem('electrohub_cart_quantities', JSON.stringify(quantities));
@@ -833,6 +831,10 @@ function clearCart() {
         localStorage.removeItem('electrohub_cart');
         localStorage.removeItem('electrohub_cart_quantities');
         inCart = [];
+        // Также обновляем статус в основном массиве products
+        products.forEach(product => {
+            product.inBasket = false;
+        });
         renderCartItems();
         alert('Корзина очищена');
     }
