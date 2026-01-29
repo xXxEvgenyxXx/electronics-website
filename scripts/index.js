@@ -105,26 +105,6 @@ const products = [
 let inChosen = [];
 let inCart = [];
 
-// Меню "Прочее"
-const moreOptionsButton = document.querySelector('.more-button');
-const moreOptions = document.querySelector('.more-options-wrapper');
-
-moreOptionsButton.addEventListener('click', (evt) => {
-    evt.stopPropagation();
-    if(moreOptions.style.display === 'none' || moreOptions.style.display === ''){
-        moreOptions.style.display = 'flex';
-    } else {
-        moreOptions.style.display = 'none';
-    }
-});
-
-// Закрытие меню при клике вне его области
-document.addEventListener('click', (evt) => {
-    if (!document.querySelector('.more-wrapper').contains(evt.target)) {
-        moreOptions.style.display = 'none';
-    }
-});
-
 function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
 }
@@ -134,6 +114,7 @@ function addToChosen(product) {
     const existingProduct = inChosen.find(item => item.id === product.id);
     if (!existingProduct) {
         inChosen.push(product);
+        saveToLocalStorage();
         console.log(`Товар "${product.name}" добавлен в избранное`, inChosen);
     }
 }
@@ -143,6 +124,7 @@ function removeFromChosen(productId) {
     const index = inChosen.findIndex(item => item.id === productId);
     if (index !== -1) {
         const removedProduct = inChosen.splice(index, 1)[0];
+        saveToLocalStorage();
         console.log(`Товар "${removedProduct.name}" удален из избранного`, inChosen);
     }
 }
@@ -153,6 +135,7 @@ function addToCart(product) {
     if (!existingProduct) {
         inCart.push(product);
         product.inBasket = true;
+        saveToLocalStorage();
         console.log(`Товар "${product.name}" добавлен в корзину`, inCart);
     }
 }
@@ -166,6 +149,7 @@ function removeFromCart(productId) {
         if (productInProducts) {
             productInProducts.inBasket = false;
         }
+        saveToLocalStorage();
         console.log(`Товар "${removedProduct.name}" удален из корзины`, inCart);
     }
 }
@@ -175,10 +159,27 @@ function renderProducts(productsArray) {
     const productsContainer = document.querySelector('.products');
     const template = document.querySelector('.card-template');
     
+    // Очищаем контейнер
     productsContainer.innerHTML = '';
     
-    productsArray.forEach(product => {
-        const card = template.content.cloneNode(true).querySelector('.product-card');
+    if (productsArray.length === 0) {
+        productsContainer.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <h4>Товары не найдены</h4>
+                    <p>Попробуйте изменить параметры фильтрации</p>
+                </div>
+            </div>
+        `;
+        return;
+    }
+    
+    productsArray.forEach((product, index) => {
+        const card = template.content.cloneNode(true).querySelector('.col');
+        
+        const cardElement = card.querySelector('.product-card');
+        // Добавляем задержку для анимации
+        cardElement.style.animationDelay = `${index * 0.05}s`;
         
         const img = card.querySelector('img');
         img.src = product.image;
@@ -194,6 +195,7 @@ function renderProducts(productsArray) {
         const addToFavBtn = card.querySelector('.btn-secondary');
         
         addToCartBtn.textContent = 'В корзину';
+        addToFavBtn.textContent = 'В избранное';
         
         const isInCart = inCart.some(item => item.id === product.id) || product.inBasket;
         const isInChosen = inChosen.some(item => item.id === product.id);
@@ -201,15 +203,18 @@ function renderProducts(productsArray) {
         if (isInCart) {
             addToCartBtn.textContent = 'В корзине';
             addToCartBtn.disabled = true;
-            addToCartBtn.style.opacity = '0.7';
-            addToCartBtn.style.cursor = 'not-allowed';
+            addToCartBtn.classList.remove('btn-primary');
+            addToCartBtn.classList.add('btn-secondary');
         }
         
         if (isInChosen) {
             product.isChosen = true;
             addToFavBtn.textContent = 'В избранном';
+            addToFavBtn.classList.remove('btn-outline-secondary');
+            addToFavBtn.classList.add('btn-danger');
             addToFavBtn.style.backgroundColor = '#ffebee';
             addToFavBtn.style.color = '#d32f2f';
+            addToFavBtn.style.borderColor = '#ffebee';
         }
         
         addToCartBtn.addEventListener('click', () => {
@@ -217,26 +222,32 @@ function renderProducts(productsArray) {
                 addToCart(product);
                 addToCartBtn.textContent = 'В корзине';
                 addToCartBtn.disabled = true;
-                addToCartBtn.style.opacity = '0.7';
-                addToCartBtn.style.cursor = 'not-allowed';
+                addToCartBtn.classList.remove('btn-primary');
+                addToCartBtn.classList.add('btn-secondary');
                 console.log(`Товар "${product.name}" добавлен в корзину`);
             }
         });
         
         addToFavBtn.addEventListener('click', () => {
-            if (addToFavBtn.textContent === 'Добавить в избранное') {
+            if (addToFavBtn.textContent === 'В избранное') {
                 product.isChosen = true;
                 addToChosen(product);
                 addToFavBtn.textContent = 'В избранном';
+                addToFavBtn.classList.remove('btn-outline-secondary');
+                addToFavBtn.classList.add('btn-danger');
                 addToFavBtn.style.backgroundColor = '#ffebee';
                 addToFavBtn.style.color = '#d32f2f';
+                addToFavBtn.style.borderColor = '#ffebee';
                 console.log(`Товар "${product.name}" добавлен в избранное`);
             } else {
                 product.isChosen = false;
                 removeFromChosen(product.id);
-                addToFavBtn.textContent = 'Добавить в избранное';
+                addToFavBtn.textContent = 'В избранное';
+                addToFavBtn.classList.remove('btn-danger');
+                addToFavBtn.classList.add('btn-outline-secondary');
                 addToFavBtn.style.backgroundColor = '';
                 addToFavBtn.style.color = '';
+                addToFavBtn.style.borderColor = '';
                 console.log(`Товар "${product.name}" удален из избранного`);
             }
         });
@@ -247,9 +258,13 @@ function renderProducts(productsArray) {
 
 // Функция для инициализации фильтров
 function initFilters() {
-    const brandCheckboxes = document.querySelectorAll('.filters label input[type="checkbox"]');
+    const brandCheckboxes = document.querySelectorAll('input[data-filter="brand"]');
+    const categoryCheckboxes = document.querySelectorAll('input[data-filter="category"]');
     
-    brandCheckboxes.forEach(checkbox => {
+    // Объединяем все чекбоксы
+    const allCheckboxes = [...brandCheckboxes, ...categoryCheckboxes];
+    
+    allCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', filterProducts);
     });
 }
@@ -257,7 +272,7 @@ function initFilters() {
 // Функция фильтрации товаров с логическим И
 function filterProducts() {
     const checkedCheckboxes = Array.from(
-        document.querySelectorAll('.filters label input[type="checkbox"]:checked')
+        document.querySelectorAll('input[type="checkbox"]:checked')
     );
     
     // Если ничего не выбрано, показываем все товары
@@ -267,9 +282,10 @@ function filterProducts() {
     }
     
     // Получаем выбранные значения фильтров
-    const selectedFilters = checkedCheckboxes.map(cb => 
-        cb.parentElement.textContent.trim().toLowerCase()
-    );
+    const selectedFilters = checkedCheckboxes.map(cb => {
+        const label = cb.closest('.form-check').querySelector('.form-check-label');
+        return label.textContent.trim().toLowerCase();
+    });
     
     // Разделяем фильтры на бренды и категории
     const selectedBrands = [];
@@ -277,7 +293,7 @@ function filterProducts() {
     
     // Все возможные бренды и категории для проверки
     const allBrands = ['apple', 'samsung', 'xiaomi', 'asus', 'lenovo', 'sony'];
-    const allCategories = ['смартфоны', 'ноутбуки', 'наушники', 'игровые консоли', 'телевизоры'];
+    const allCategories = ['смартфоны', 'ноутбуки', 'наушники', 'игровые консоли', 'телевизоры', 'планшеты', 'умные часы', 'фототехника'];
     
     selectedFilters.forEach(filter => {
         if (allBrands.includes(filter)) {
@@ -310,15 +326,62 @@ function filterProducts() {
     renderProducts(filteredProducts);
 }
 
+// Сохранение данных в localStorage
+function saveToLocalStorage() {
+    localStorage.setItem('electrohub_chosen', JSON.stringify(inChosen.map(p => p.id)));
+    localStorage.setItem('electrohub_cart', JSON.stringify(inCart.map(p => p.id)));
+}
+
+// Загрузка данных из localStorage
+function loadFromLocalStorage() {
+    const chosenIds = JSON.parse(localStorage.getItem('electrohub_chosen') || '[]');
+    const cartIds = JSON.parse(localStorage.getItem('electrohub_cart') || '[]');
+    
+    // Восстанавливаем избранные товары
+    chosenIds.forEach(id => {
+        const product = products.find(p => p.id === id);
+        if (product && !inChosen.some(p => p.id === id)) {
+            product.isChosen = true;
+            inChosen.push(product);
+        }
+    });
+    
+    // Восстанавливаем корзину
+    cartIds.forEach(id => {
+        const product = products.find(p => p.id === id);
+        if (product && !inCart.some(p => p.id === id)) {
+            product.inBasket = true;
+            inCart.push(product);
+        }
+    });
+}
+
 // Функция инициализации страницы
 function initCatalog() {
+    // Загружаем сохраненные данные
+    loadFromLocalStorage();
+    
+    // Рендерим все товары
     renderProducts(products);
     
+    // Инициализируем фильтры
     initFilters();
     
     console.log('Каталог инициализирован. Товаров:', products.length);
-    console.log('Избранные товары:', inChosen);
-    console.log('Товары в корзине:', inCart);
+    console.log('Избранные товары:', inChosen.map(p => p.name));
+    console.log('Товары в корзине:', inCart.map(p => p.name));
+    
+    // Обработчик для очистки фильтров (можно добавить кнопку позже)
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'r') {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+            renderProducts(products);
+            console.log('Фильтры очищены');
+        }
+    });
 }
 
-initCatalog();
+// Инициализируем при загрузке страницы
+document.addEventListener('DOMContentLoaded', initCatalog);

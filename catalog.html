@@ -2,80 +2,164 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Каталог — ElectroHub</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="./styles/index.css">
         <link rel="stylesheet" href="./styles/catalog.css">
     </head>
     <body>
-        <header>
-            <div class="header-container">
-                <img src="../images/logo.svg" alt="ElectroHub">
-                <nav id="mainNav">
-                    <a href="../index.html">Главная</a>
-                    <a href="./catalog.html">Каталог</a>
-                    <a href="#">О нас</a>
-                    <a href="#">Контакты</a>
-                    <div class="more-wrapper">
-                        <span class="more-button">Прочее</span>
-                        <div class="more-options-wrapper">
-                            <a href="./chosen.html">Избранное</a>
-                            <a href="./basket.html">Корзина</a>
-                        </div>
-                    </div>
-                </nav>
+        <header class="border-bottom border-primary">
+            <div class="container-xl py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <img src="../images/logo.svg" alt="ElectroHub" class="logo">
+                    <!-- Кнопка гамбургер-меню для мобильных -->
+                    <button class="btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button>
+                    <!-- Десктопное меню -->
+                    <nav class="d-none d-md-flex flex-wrap justify-content-center gap-3">
+                        <a href="../index.html" class="text-dark text-decoration-none">Главная</a>
+                        <a href="./catalog.html" class="text-dark text-decoration-none">Каталог</a>
+                        <a href="#" class="text-dark text-decoration-none">О нас</a>
+                        <a href="#" class="text-dark text-decoration-none">Контакты</a>
+                        <a href="#" class="text-dark text-decoration-none">Избранное</a>
+                        <a href="#" class="text-dark text-decoration-none">Корзина</a>
+                    </nav>
+                </div>
+                <!-- Мобильное меню (скрытое по умолчанию) -->
+                <div class="collapse d-md-none" id="mobileMenu">
+                    <nav class="d-flex flex-column gap-2 pt-3">
+                        <a href="../index.html" class="text-dark text-decoration-none py-1">Главная</a>
+                        <a href="./catalog.html" class="text-dark text-decoration-none py-1">Каталог</a>
+                        <a href="#" class="text-dark text-decoration-none py-1">О нас</a>
+                        <a href="#" class="text-dark text-decoration-none py-1">Контакты</a>
+                        <a href="#" class="text-dark text-decoration-none py-1">Избранное</a>
+                        <a href="#" class="text-dark text-decoration-none py-1">Корзина</a>
+                    </nav>
+                </div>
             </div>
         </header>
 
-        <div class="container catalog-layout">
-            <aside class="filters">
-                <h3>Фильтры</h3>
+        <main class="container-xl my-4">
+            <div class="row">
+                <!-- Боковая панель с фильтрами -->
+                <aside class="col-lg-3 mb-4">
+                    <div class="border rounded-3 p-4 bg-light">
+                        <h3 class="mb-4">Фильтры</h3>
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Бренды</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandApple" data-filter="brand">
+                                <label class="form-check-label" for="brandApple">Apple</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandSamsung" data-filter="brand">
+                                <label class="form-check-label" for="brandSamsung">Samsung</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandXiaomi" data-filter="brand">
+                                <label class="form-check-label" for="brandXiaomi">Xiaomi</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandSony" data-filter="brand">
+                                <label class="form-check-label" for="brandSony">Sony</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandAsus" data-filter="brand">
+                                <label class="form-check-label" for="brandAsus">ASUS</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="brandLenovo" data-filter="brand">
+                                <label class="form-check-label" for="brandLenovo">Lenovo</label>
+                            </div>
+                        </div>
 
-                <strong>Бренды</strong>
-                <label><input data-filter="brand" type="checkbox"> Apple</label>
-                <label><input data-filter="brand" type="checkbox"> Samsung</label>
-                <label><input data-filter="brand" type="checkbox"> Xiaomi</label>
-                <label><input data-filter="brand" type="checkbox"> Sony</label>
-                <label><input data-filter="brand" type="checkbox"> ASUS</label>
-                <label><input data-filter="brand" type="checkbox"> Lenovo</label>
+                        <div class="mb-4">
+                            <h5 class="mb-3">Категории</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categorySmartphones" data-filter="category">
+                                <label class="form-check-label" for="categorySmartphones">Смартфоны</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryLaptops" data-filter="category">
+                                <label class="form-check-label" for="categoryLaptops">Ноутбуки</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryHeadphones" data-filter="category">
+                                <label class="form-check-label" for="categoryHeadphones">Наушники</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryTablets" data-filter="category">
+                                <label class="form-check-label" for="categoryTablets">Планшеты</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryWatches" data-filter="category">
+                                <label class="form-check-label" for="categoryWatches">Умные часы</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryConsoles" data-filter="category">
+                                <label class="form-check-label" for="categoryConsoles">Игровые консоли</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryTV" data-filter="category">
+                                <label class="form-check-label" for="categoryTV">Телевизоры</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="categoryPhoto" data-filter="category">
+                                <label class="form-check-label" for="categoryPhoto">Фототехника</label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
 
-                <br>
-                <strong>Категории</strong>
-                <label><input data-filter="category" type="checkbox"> Смартфоны</label>
-                <label><input data-filter="category" type="checkbox"> Ноутбуки</label>
-                <label><input data-filter="category" type="checkbox"> Наушники</label>
-                <label><input data-filter="category" type="checkbox"> Планшеты</label>
-                <label><input data-filter="category" type="checkbox"> Умные часы</label>
-                <label><input data-filter="category" type="checkbox"> Игровые консоли</label>
-                <label><input data-filter="category" type="checkbox"> Телевизоры</label>
-                <label><input data-filter="category" type="checkbox"> Фототехника</label>
-            </aside>
+                <!-- Основной контент с товарами -->
+                <section class="col-lg-9">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 products" id="productsContainer">
+                        <!-- Товары будут добавляться сюда через JavaScript -->
+                    </div>
+                </section>
+            </div>
+        </main>
 
-            <section class="products">
-
-            </section>
-        </div>
-
-        <footer>
-            <div class="footer-container">
-                <div>
-                    <p><a href="../index.html">Главная</a></p>
-                    <p><a href="./catalog.html">Каталог</a></p>
-                </div>
-                <div>
-                    <p>О нас</p>
-                    <p>Контакты</p>
+        <footer class="border-top border-primary mt-auto">
+            <div class="container-xl py-4">
+                <div class="row justify-content-center text-center">
+                    <div class="col-md-6">
+                        <p><a href="../index.html" class="text-dark text-decoration-none">Главная</a></p>
+                        <p><a href="./catalog.html" class="text-dark text-decoration-none">Каталог</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="m-0">О нас</p>
+                        <p class="m-0">Контакты</p>
+                    </div>
                 </div>
             </div>
         </footer>
+
+        <!-- Шаблон карточки товара -->
         <template class="card-template">
-            <div class="product-card">
-                <img src="../images/Telef.png">
-                <h4 class="good-name">Название товара</h4>
-                <p class="good-price">10000 р</p>
-                <button class="btn-main">В корзину</button>
-                <button class="btn-secondary">Добавить в избранное</button>
+            <div class="col">
+                <div class="card product-card h-100 border rounded-3">
+                    <img src="../images/Telef.png" class="card-img-top p-3" alt="Товар">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title good-name">Название товара</h5>
+                        <p class="card-text good-price fw-bold text-primary">10000 ₽</p>
+                        <div class="mt-auto">
+                            <button class="btn btn-primary w-100 mb-2 btn-main">В корзину</button>
+                            <button class="btn btn-outline-secondary w-100 btn-secondary">В избранное</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="./scripts/index.js"></script>
     </body>
 </html>
